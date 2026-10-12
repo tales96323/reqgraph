@@ -52,6 +52,50 @@ def _assign_colors(nodes, palette):
     return color_map
 
 
+def _hierarchical_layout(G, x_gap=1.0, y_gap=2.2):
+    """
+    Layout hierárquico (top-down) em camadas, robusto a ciclos.
+
+    Cada nó é colocado numa camada dada pelo seu nível no DAG das
+    componentes fortemente conexas (condensação): funções "fonte"
+    (que ninguém invoca) ficam no topo; as folhas, em baixo. Dentro
+    de cada camada os nós são distribuídos horizontalmente de forma
+    proporcional ao número de nós, evitando o aspecto circular do
+    ``spring_layout`` e o congestionamento do ``multipartite_layout``.
+
+    Devolve ``(pos, n_layers, max_width)`` para permitir dimensionar
+    a figura de acordo com a densidade do grafo.
+    """
+    import collections
+
+    # Condensa ciclos num DAG de componentes fortemente conexas
+    C = nx.condensation(G)
+    layer_of_scc = {}
+    for scc in nx.topological_sort(C):
+        preds = list(C.predecessors(scc))
+        layer_of_scc[scc] = 0 if not preds else 1 + max(layer_of_scc[p] for p in preds)
+
+    membership = C.graph["mapping"]  # nó original -> id da SCC
+    layer = {n: layer_of_scc[membership[n]] for n in G.nodes}
+
+    by_layer = collections.defaultdict(list)
+    for n in sorted(G.nodes):
+        by_layer[layer[n]].append(n)
+
+    max_layer = max(layer.values()) if layer else 0
+    max_width = max((len(v) for v in by_layer.values()), default=1)
+
+    pos = {}
+    for lyr, nodes in by_layer.items():
+        span = (len(nodes) - 1) * x_gap
+        for i, n in enumerate(nodes):
+            x = i * x_gap - span / 2.0
+            y = (max_layer - lyr) * y_gap
+            pos[n] = (x, float(y))
+
+    return pos, (max_layer + 1), max_width
+
+
 # ═══════════════════════════════════════════════════════════════════════════
 # Call Graph
 # ═══════════════════════════════════════════════════════════════════════════
@@ -88,38 +132,46 @@ def visualize_call_graph(call_graph, output_path="call_graph.png", title="Call G
         parts = n.split(".")
         labels[n] = ".".join(parts[1:]) if len(parts) > 1 else n
 
-    # Layout
-    fig, ax = plt.subplots(figsize=(14, 8))
+    # Layout hierárquico (top-down) e dimensionamento dinâmico da figura
+    pos, n_layers, max_width = _hierarchical_layout(G)
+
+    fig_w = max(14, min(60, max_width * 0.55))
+    fig_h = max(7, min(30, n_layers * 1.9))
+    n_nodes = len(G.nodes)
+    node_size = max(280, min(2200, int(16000 / max(max_width, 1))))
+
+    fig, ax = plt.subplots(figsize=(fig_w, fig_h))
     fig.patch.set_facecolor("#FAFAFA")
     ax.set_facecolor("#FAFAFA")
-
-    pos = nx.spring_layout(G, k=2.5, iterations=60, seed=42)
 
     nx.draw_networkx_edges(
         G, pos, ax=ax,
         edge_color="#78909C",
         arrows=True,
-        arrowsize=20,
+        arrowsize=max(10, min(20, int(node_size / 110))),
         arrowstyle="-|>",
-        connectionstyle="arc3,rad=0.1",
-        width=1.5,
-        alpha=0.7,
+        connectionstyle="arc3,rad=0.08",
+        width=1.2,
+        alpha=0.6,
+        node_size=node_size,
     )
 
     nx.draw_networkx_nodes(
         G, pos, ax=ax,
         node_color=node_colors,
-        node_size=2200,
+        node_size=node_size,
         edgecolors="#37474F",
-        linewidths=1.5,
+        linewidths=1.0,
     )
 
-    nx.draw_networkx_labels(
-        G, pos, labels=labels, ax=ax,
-        font_size=8,
-        font_weight="bold",
-        font_family="monospace",
-    )
+    # Rótulos só quando o grafo é suficientemente pequeno para serem legíveis
+    if n_nodes <= 35:
+        nx.draw_networkx_labels(
+            G, pos, labels=labels, ax=ax,
+            font_size=8,
+            font_weight="bold",
+            font_family="monospace",
+        )
 
     # Legenda
     legend_handles = []
@@ -142,7 +194,15 @@ def visualize_call_graph(call_graph, output_path="call_graph.png", title="Call G
 
 def visualize_req_graph(req_graph, output_path="req_graph.png", title="Grafo de Requisitos"):
     """
-    Gera um PNG do grafo de requisitos.
+    Gera um PNG do grafo de requisitos no estilo limpo dos grafos
+    direcionados do Capítulo 2 (fundo branco, setas escuras, grossas e
+    proeminentes que terminam na borda do nó, rótulos a negrito).
+
+    Motivação (R6): uniformizar o aspeto dos grafos de requisitos
+    (Resultados) com o dos grafos ilustrativos do Capítulo 2, garantindo
+    que as setas permanecem visíveis mesmo quando a figura é reduzida no
+    PDF. Substitui o estilo anterior (fundo cinzento, setas vermelhas
+    finas que ficavam escondidas sob os nós).
 
     Parâmetros
     ----------
@@ -162,45 +222,54 @@ def visualize_req_graph(req_graph, output_path="req_graph.png", title="Grafo de 
         print("  [AVISO] Grafo de requisitos vazio, PNG nao gerado.")
         return
 
-    # Cores por requisito
-    color_map = _assign_colors(G.nodes, REQ_COLORS)
-    node_colors = [color_map[n] for n in G.nodes]
+    # Estilo coerente com o Capítulo 2: nós claros e uniformes; os
+    # rótulos (nomes REQ_*) é que distinguem cada vértice.
+    NODE_FILL = "#A8D5E2"
+    NODE_SIZE = 3200
+    EDGE_DARK = "#263238"
 
-    fig, ax = plt.subplots(figsize=(12, 7))
-    fig.patch.set_facecolor("#FAFAFA")
-    ax.set_facecolor("#FAFAFA")
+    fig, ax = plt.subplots(figsize=(11, 7))
+    fig.patch.set_facecolor("white")
+    ax.set_facecolor("white")
 
-    pos = nx.spring_layout(G, k=3.0, iterations=60, seed=42)
+    # Layout limpo e bem espalhado (reduz cruzamentos face ao spring).
+    pos = nx.kamada_kawai_layout(G)
 
     nx.draw_networkx_edges(
         G, pos, ax=ax,
-        edge_color="#EF5350",
+        edge_color=EDGE_DARK,
         arrows=True,
-        arrowsize=25,
+        arrowsize=24,
         arrowstyle="-|>",
-        connectionstyle="arc3,rad=0.1",
-        width=2.0,
-        alpha=0.8,
+        connectionstyle="arc3,rad=0.12",   # separa arestas recíprocas (ciclos)
+        width=2.2,
+        node_size=NODE_SIZE,               # faz a seta parar na borda do nó
+        min_source_margin=2,
+        min_target_margin=2,
+        alpha=0.9,
     )
 
     nx.draw_networkx_nodes(
         G, pos, ax=ax,
-        node_color=node_colors,
-        node_size=3500,
+        node_color=NODE_FILL,
+        node_size=NODE_SIZE,
         edgecolors="#37474F",
-        linewidths=2,
+        linewidths=1.5,
     )
 
     nx.draw_networkx_labels(
         G, pos, ax=ax,
-        font_size=10,
+        font_size=9,
         font_weight="bold",
         font_family="monospace",
+        bbox=dict(boxstyle="round,pad=0.15", fc="white", ec="none", alpha=0.7),
     )
 
-    ax.set_title(title, fontsize=16, fontweight="bold", pad=20)
+    if title:
+        ax.set_title(title, fontsize=14, fontweight="bold", pad=14)
+    ax.margins(0.14)
     ax.axis("off")
     plt.tight_layout()
-    plt.savefig(output_path, dpi=150, bbox_inches="tight")
+    plt.savefig(output_path, dpi=150, facecolor="white", bbox_inches="tight")
     plt.close()
     print(f"  [OK] Req Graph PNG: {output_path}")

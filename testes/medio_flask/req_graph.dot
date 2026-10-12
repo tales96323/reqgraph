@@ -1,0 +1,15 @@
+digraph RequirementGraph {
+    rankdir=LR;
+    node [shape=box, style=filled, fillcolor=lightyellow];
+    "REQ_APP_CORE" -> "REQ_CLI_COMMANDS";
+    "REQ_APP_CORE" -> "REQ_CLI_FRAMEWORK";
+    "REQ_APP_CORE" -> "REQ_CONTEXT";
+    "REQ_CLI_FRAMEWORK" -> "REQ_CONTEXT";
+    "REQ_CONTEXT" -> "REQ_REQUEST_HANDLING";
+    "REQ_ERROR_HANDLING" -> "REQ_REQUEST_HANDLING";
+    "REQ_REQUEST_HANDLING" -> "REQ_CONTEXT";
+    "REQ_REQUEST_HANDLING" -> "REQ_ERROR_HANDLING";
+    "REQ_REQUEST_HANDLING" -> "REQ_ROUTING";
+    "REQ_ROUTING" -> "REQ_ERROR_HANDLING";
+    "REQ_ROUTING" -> "REQ_REQUEST_HANDLING";
+}

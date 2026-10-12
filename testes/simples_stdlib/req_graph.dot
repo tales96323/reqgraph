@@ -1,0 +1,13 @@
+digraph RequirementGraph {
+    rankdir=LR;
+    node [shape=box, style=filled, fillcolor=lightyellow];
+    "REQ_ACTIONS" -> "REQ_CONFIGURATION";
+    "REQ_ACTIONS" -> "REQ_FORMATTING";
+    "REQ_ACTIONS" -> "REQ_VALIDATION";
+    "REQ_ERROR_HANDLING" -> "REQ_FORMATTING";
+    "REQ_FORMATTING" -> "REQ_ERROR_HANDLING";
+    "REQ_HTTP_HANDLER" -> "REQ_HTTP_CONTENT";
+    "REQ_HTTP_HANDLER" -> "REQ_HTTP_LOGGING";
+    "REQ_PARSING" -> "REQ_ERROR_HANDLING";
+    "REQ_PARSING" -> "REQ_VALIDATION";
+}

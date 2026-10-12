@@ -1,0 +1,263 @@
+{
+  "project": "simples_stdlib",
+  "graph_file": "req_graph.json",
+  "num_nodes": 9,
+  "num_edges": 9,
+  "nodes": [
+    "REQ_ACTIONS",
+    "REQ_CONFIGURATION",
+    "REQ_ERROR_HANDLING",
+    "REQ_FORMATTING",
+    "REQ_HTTP_CONTENT",
+    "REQ_HTTP_HANDLER",
+    "REQ_HTTP_LOGGING",
+    "REQ_PARSING",
+    "REQ_VALIDATION"
+  ],
+  "algorithms": {
+    "pagerank": {
+      "description": "Fator de amortecimento d=0.85, convergência=1e-06",
+      "scores": [
+        {
+          "rank": 1,
+          "node": "REQ_ERROR_HANDLING",
+          "score": 0.337065
+        },
+        {
+          "rank": 2,
+          "node": "REQ_FORMATTING",
+          "score": 0.334215
+        },
+        {
+          "rank": 3,
+          "node": "REQ_VALIDATION",
+          "score": 0.063513
+        },
+        {
+          "rank": 4,
+          "node": "REQ_HTTP_CONTENT",
+          "score": 0.052979
+        },
+        {
+          "rank": 5,
+          "node": "REQ_HTTP_LOGGING",
+          "score": 0.052979
+        },
+        {
+          "rank": 6,
+          "node": "REQ_CONFIGURATION",
+          "score": 0.047712
+        },
+        {
+          "rank": 7,
+          "node": "REQ_ACTIONS",
+          "score": 0.037179
+        },
+        {
+          "rank": 8,
+          "node": "REQ_HTTP_HANDLER",
+          "score": 0.037179
+        },
+        {
+          "rank": 9,
+          "node": "REQ_PARSING",
+          "score": 0.037179
+        }
+      ]
+    },
+    "hits": {
+      "description": "HITS de Kleinberg — separação hub/authority",
+      "hubs": [
+        {
+          "rank": 1,
+          "node": "REQ_ACTIONS",
+          "score": 0.461819
+        },
+        {
+          "rank": 2,
+          "node": "REQ_PARSING",
+          "score": 0.28542
+        },
+        {
+          "rank": 3,
+          "node": "REQ_ERROR_HANDLING",
+          "score": 0.156215
+        },
+        {
+          "rank": 4,
+          "node": "REQ_FORMATTING",
+          "score": 0.096546
+        },
+        {
+          "rank": 5,
+          "node": "REQ_CONFIGURATION",
+          "score": 0.0
+        },
+        {
+          "rank": 6,
+          "node": "REQ_VALIDATION",
+          "score": 0.0
+        },
+        {
+          "rank": 7,
+          "node": "REQ_HTTP_CONTENT",
+          "score": 0.0
+        },
+        {
+          "rank": 8,
+          "node": "REQ_HTTP_LOGGING",
+          "score": 0.0
+        },
+        {
+          "rank": 9,
+          "node": "REQ_HTTP_HANDLER",
+          "score": -0.0
+        }
+      ],
+      "authorities": [
+        {
+          "rank": 1,
+          "node": "REQ_VALIDATION",
+          "score": 0.338261
+        },
+        {
+          "rank": 2,
+          "node": "REQ_FORMATTING",
+          "score": 0.279773
+        },
+        {
+          "rank": 3,
+          "node": "REQ_CONFIGURATION",
+          "score": 0.209057
+        },
+        {
+          "rank": 4,
+          "node": "REQ_ERROR_HANDLING",
+          "score": 0.172909
+        },
+        {
+          "rank": 5,
+          "node": "REQ_ACTIONS",
+          "score": 0.0
+        },
+        {
+          "rank": 6,
+          "node": "REQ_HTTP_HANDLER",
+          "score": 0.0
+        },
+        {
+          "rank": 7,
+          "node": "REQ_PARSING",
+          "score": 0.0
+        },
+        {
+          "rank": 8,
+          "node": "REQ_HTTP_CONTENT",
+          "score": -0.0
+        },
+        {
+          "rank": 9,
+          "node": "REQ_HTTP_LOGGING",
+          "score": -0.0
+        }
+      ]
+    },
+    "salsa": {
+      "description": "SALSA — cadeia de Markov sobre grafo bipartido hub/authority",
+      "hubs": [
+        {
+          "rank": 1,
+          "node": "REQ_ACTIONS",
+          "score": 0.342857
+        },
+        {
+          "rank": 2,
+          "node": "REQ_PARSING",
+          "score": 0.228571
+        },
+        {
+          "rank": 3,
+          "node": "REQ_HTTP_HANDLER",
+          "score": 0.2
+        },
+        {
+          "rank": 4,
+          "node": "REQ_ERROR_HANDLING",
+          "score": 0.114286
+        },
+        {
+          "rank": 5,
+          "node": "REQ_FORMATTING",
+          "score": 0.114286
+        },
+        {
+          "rank": 6,
+          "node": "REQ_CONFIGURATION",
+          "score": 0.0
+        },
+        {
+          "rank": 7,
+          "node": "REQ_HTTP_CONTENT",
+          "score": 0.0
+        },
+        {
+          "rank": 8,
+          "node": "REQ_HTTP_LOGGING",
+          "score": 0.0
+        },
+        {
+          "rank": 9,
+          "node": "REQ_VALIDATION",
+          "score": 0.0
+        }
+      ],
+      "authorities": [
+        {
+          "rank": 1,
+          "node": "REQ_ERROR_HANDLING",
+          "score": 0.190476
+        },
+        {
+          "rank": 2,
+          "node": "REQ_FORMATTING",
+          "score": 0.190476
+        },
+        {
+          "rank": 3,
+          "node": "REQ_VALIDATION",
+          "score": 0.190476
+        },
+        {
+          "rank": 4,
+          "node": "REQ_HTTP_CONTENT",
+          "score": 0.166667
+        },
+        {
+          "rank": 5,
+          "node": "REQ_HTTP_LOGGING",
+          "score": 0.166667
+        },
+        {
+          "rank": 6,
+          "node": "REQ_CONFIGURATION",
+          "score": 0.095238
+        },
+        {
+          "rank": 7,
+          "node": "REQ_ACTIONS",
+          "score": 0.0
+        },
+        {
+          "rank": 8,
+          "node": "REQ_HTTP_HANDLER",
+          "score": 0.0
+        },
+        {
+          "rank": 9,
+          "node": "REQ_PARSING",
+          "score": 0.0
+        }
+      ]
+    }
+  }
+}

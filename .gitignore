@@ -1,26 +1,36 @@
-# Byte-compiled / optimized / DLL files
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
 
-# Ambiente Virtual
-venv/
+# Ambiente virtual
 .venv/
+venv/
 env/
 .env/
 
-# IDEs
-.vscode/
-.idea/
-
-# Distribution / packaging
+# Distribuição / empacotamento
 dist/
 build/
 *.egg-info/
 *.egg
+*.whl
 
-# Outputs de Teste e Gráficos Gerados
-*.png
-*.dot
-*.json
+# IDEs e editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Sistema operativo
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Logs
 *.log
+
+# Nota: os artefactos dos casos de estudo (testes/<nivel>/*.png, *.json, *.dot)
+# e os resultados consolidados na raiz são versionados intencionalmente, para
+# permitir a auditoria dos resultados reportados na dissertação.

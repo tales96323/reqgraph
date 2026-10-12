@@ -1,0 +1,237 @@
+{
+  "project": "complexo_sklearn",
+  "graph_file": "req_graph.json",
+  "num_nodes": 8,
+  "num_edges": 17,
+  "nodes": [
+    "REQ_DECISION_TREE",
+    "REQ_FEATURE_UNION",
+    "REQ_LINEAR_MODEL",
+    "REQ_LOGISTIC_REGRESSION",
+    "REQ_PIPELINE",
+    "REQ_PIPELINE_FIT",
+    "REQ_PIPELINE_PREDICT",
+    "REQ_SKLEARN_TAGS"
+  ],
+  "algorithms": {
+    "pagerank": {
+      "description": "Fator de amortecimento d=0.85, convergência=1e-06",
+      "scores": [
+        {
+          "rank": 1,
+          "node": "REQ_PIPELINE",
+          "score": 0.257377
+        },
+        {
+          "rank": 2,
+          "node": "REQ_PIPELINE_PREDICT",
+          "score": 0.218103
+        },
+        {
+          "rank": 3,
+          "node": "REQ_SKLEARN_TAGS",
+          "score": 0.156117
+        },
+        {
+          "rank": 4,
+          "node": "REQ_LOGISTIC_REGRESSION",
+          "score": 0.140316
+        },
+        {
+          "rank": 5,
+          "node": "REQ_DECISION_TREE",
+          "score": 0.067393
+        },
+        {
+          "rank": 6,
+          "node": "REQ_FEATURE_UNION",
+          "score": 0.067393
+        },
+        {
+          "rank": 7,
+          "node": "REQ_LINEAR_MODEL",
+          "score": 0.067393
+        },
+        {
+          "rank": 8,
+          "node": "REQ_PIPELINE_FIT",
+          "score": 0.02591
+        }
+      ]
+    },
+    "hits": {
+      "description": "HITS de Kleinberg — separação hub/authority",
+      "hubs": [
+        {
+          "rank": 1,
+          "node": "REQ_PIPELINE_PREDICT",
+          "score": 0.359817
+        },
+        {
+          "rank": 2,
+          "node": "REQ_PIPELINE_FIT",
+          "score": 0.359817
+        },
+        {
+          "rank": 3,
+          "node": "REQ_PIPELINE",
+          "score": 0.095711
+        },
+        {
+          "rank": 4,
+          "node": "REQ_SKLEARN_TAGS",
+          "score": 0.082485
+        },
+        {
+          "rank": 5,
+          "node": "REQ_FEATURE_UNION",
+          "score": 0.082485
+        },
+        {
+          "rank": 6,
+          "node": "REQ_LOGISTIC_REGRESSION",
+          "score": 0.009842
+        },
+        {
+          "rank": 7,
+          "node": "REQ_DECISION_TREE",
+          "score": 0.009842
+        },
+        {
+          "rank": 8,
+          "node": "REQ_LINEAR_MODEL",
+          "score": -0.0
+        }
+      ],
+      "authorities": [
+        {
+          "rank": 1,
+          "node": "REQ_PIPELINE",
+          "score": 0.217349
+        },
+        {
+          "rank": 2,
+          "node": "REQ_LOGISTIC_REGRESSION",
+          "score": 0.200333
+        },
+        {
+          "rank": 3,
+          "node": "REQ_DECISION_TREE",
+          "score": 0.176816
+        },
+        {
+          "rank": 4,
+          "node": "REQ_FEATURE_UNION",
+          "score": 0.176816
+        },
+        {
+          "rank": 5,
+          "node": "REQ_LINEAR_MODEL",
+          "score": 0.176816
+        },
+        {
+          "rank": 6,
+          "node": "REQ_PIPELINE_PREDICT",
+          "score": 0.025935
+        },
+        {
+          "rank": 7,
+          "node": "REQ_SKLEARN_TAGS",
+          "score": 0.025935
+        },
+        {
+          "rank": 8,
+          "node": "REQ_PIPELINE_FIT",
+          "score": -0.0
+        }
+      ]
+    },
+    "salsa": {
+      "description": "SALSA — cadeia de Markov sobre grafo bipartido hub/authority",
+      "hubs": [
+        {
+          "rank": 1,
+          "node": "REQ_PIPELINE_FIT",
+          "score": 0.294118
+        },
+        {
+          "rank": 2,
+          "node": "REQ_PIPELINE_PREDICT",
+          "score": 0.294118
+        },
+        {
+          "rank": 3,
+          "node": "REQ_PIPELINE",
+          "score": 0.176471
+        },
+        {
+          "rank": 4,
+          "node": "REQ_DECISION_TREE",
+          "score": 0.058824
+        },
+        {
+          "rank": 5,
+          "node": "REQ_FEATURE_UNION",
+          "score": 0.058824
+        },
+        {
+          "rank": 6,
+          "node": "REQ_LOGISTIC_REGRESSION",
+          "score": 0.058824
+        },
+        {
+          "rank": 7,
+          "node": "REQ_SKLEARN_TAGS",
+          "score": 0.058824
+        },
+        {
+          "rank": 8,
+          "node": "REQ_LINEAR_MODEL",
+          "score": 0.0
+        }
+      ],
+      "authorities": [
+        {
+          "rank": 1,
+          "node": "REQ_PIPELINE",
+          "score": 0.235294
+        },
+        {
+          "rank": 2,
+          "node": "REQ_LOGISTIC_REGRESSION",
+          "score": 0.176471
+        },
+        {
+          "rank": 3,
+          "node": "REQ_DECISION_TREE",
+          "score": 0.117647
+        },
+        {
+          "rank": 4,
+          "node": "REQ_FEATURE_UNION",
+          "score": 0.117647
+        },
+        {
+          "rank": 5,
+          "node": "REQ_LINEAR_MODEL",
+          "score": 0.117647
+        },
+        {
+          "rank": 6,
+          "node": "REQ_PIPELINE_PREDICT",
+          "score": 0.117647
+        },
+        {
+          "rank": 7,
+          "node": "REQ_SKLEARN_TAGS",
+          "score": 0.117647
+        },
+        {
+          "rank": 8,
+          "node": "REQ_PIPELINE_FIT",
+          "score": 0.0
+        }
+      ]
+    }
+  }
+}
