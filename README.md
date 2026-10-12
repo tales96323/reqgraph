@@ -249,7 +249,7 @@ python compute_rank_correlations.py    # 3. Spearman e Kendall -> rank_correlati
 
 O `run_tests.py` aceita opcionalmente o nível a executar (`simples`, `medio` ou `complexo`) e verifica a geração dos quatro artefactos esperados em cada caso. O `run_ranking.py` é uma alternativa ao passo 2 que aceita os mesmos níveis.
 
-O *pipeline* não contém fontes de aleatoriedade: a análise estática é determinística, o PageRank e o HITS partem de vetores iniciais uniformes com tolerâncias fixas, o SALSA é calculado em forma fechada e as visualizações usam disposições determinísticas. A reexecução sobre o corpus versionado reproduz os grafos (`req_graph.json`, `req_graph.dot`) byte a byte e os mesmos *scores* e coeficientes de correlação; podem ocorrer apenas diferenças irrelevantes de representação, como `-0.0` em vez de `0.0` em *scores* nulos.
+O *pipeline* não contém fontes de aleatoriedade: a análise estática é determinística, o PageRank e o HITS partem de vetores iniciais uniformes com tolerâncias fixas, o SALSA é calculado em forma fechada e as visualizações usam disposições determinísticas. A reexecução sobre o corpus versionado reproduz byte a byte os grafos (`req_graph.json`, `req_graph.dot`) e o ficheiro `rank_correlations.json`, e produz os mesmos *scores* para todos os requisitos. Com versões diferentes das bibliotecas podem variar apenas aspetos sem efeito nos resultados: a ordem de listagem de requisitos empatados com *score* nulo, a representação `-0.0` em vez de `0.0` e a renderização das figuras PNG.
 
 ## 8. Casos de estudo
 
